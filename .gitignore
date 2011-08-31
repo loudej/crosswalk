@@ -1,0 +1,12 @@
+obj
+bin
+*.csproj.user
+*ReSharper*
+*resharper*
+*.suo
+*.cache
+* Thumbs.db
+*.sdf
+*.opensdf
+ipch
+Sandbox/App_Data

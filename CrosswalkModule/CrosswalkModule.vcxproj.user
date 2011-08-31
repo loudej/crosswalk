@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LocalDebuggerCommand>C:\Windows\SysWOW64\inetsrv\w3wp.exe</LocalDebuggerCommand>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerCommandArguments>-h $(SolutionDir)Sandbox\Host.config</LocalDebuggerCommandArguments>
+    <LocalDebuggerDebuggerType>Mixed</LocalDebuggerDebuggerType>
+    <ShowAllFiles>false</ShowAllFiles>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LocalDebuggerCommand>C:\Windows\System32\inetsrv\w3wp.exe</LocalDebuggerCommand>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerCommandArguments>-h $(SolutionDir)Sandbox\Host.config</LocalDebuggerCommandArguments>
+    <LocalDebuggerDebuggerType>Mixed</LocalDebuggerDebuggerType>
+    <ShowAllFiles>false</ShowAllFiles>
+  </PropertyGroup>
+</Project>
