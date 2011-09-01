@@ -13,7 +13,7 @@ namespace Crosswalk
         {
             _appPoolInfo.CreateAppDomain = CreateAppDomain;
             _appPoolInfo.UnloadAppDomain = UnloadAppDomain;
-            CrosswalkModule.BindAppPoolInfo(ref _appPoolInfo);
+            CrosswalkModule.Call.BindAppPoolInfo(ref _appPoolInfo);
 
             setup.ApplicationBase = Path.GetDirectoryName(_appPoolInfo.ClrConfigFile);
             setup.ConfigurationFile = Path.Combine(setup.ApplicationBase, "Web.config");
@@ -23,7 +23,7 @@ namespace Crosswalk
         int CreateAppDomain(String applicationPhysicalPath, String applicationId, String appConfigPath)
         {
             _appHandlerInfo.BindHandler = _webAppDomainManager.BindHandler;
-            CrosswalkModule.BindAppHandlerInfo(ref _appHandlerInfo);
+            CrosswalkModule.Call.BindAppHandlerInfo(ref _appHandlerInfo);
             return AppDomain.CurrentDomain.Id;
         }
 

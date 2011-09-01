@@ -14,7 +14,7 @@ namespace Crosswalk
         {
             _info.CreateAppDomain = CreateAppDomain;
             _info.UnloadAppDomain = UnloadAppDomain;
-            CrosswalkModule.BindAppPoolInfo(ref _info);
+            CrosswalkModule.Call.BindAppPoolInfo(ref _info);
 
             setup.ApplicationBase = Path.GetDirectoryName(_info.ClrConfigFile);
             setup.ConfigurationFile = _info.ClrConfigFile;
@@ -30,8 +30,8 @@ namespace Crosswalk
                 AppDomainManagerType = typeof(WebAppDomainManager).FullName,
                 AppDomainManagerAssembly = typeof(WebAppDomainManager).Assembly.FullName,
             };
-
-            var appDomain = AppDomain.CreateDomain(applicationId, null, setup);
+            
+            var appDomain = CrosswalkModule.Call.AppDomain_CreateDomain(applicationId, null, setup);
             lock (_crit)
             {
                 _appDomains.Add(appDomain.Id, appDomain);
@@ -47,7 +47,7 @@ namespace Crosswalk
                 appDomain = _appDomains[domainId];
                 _appDomains.Remove(domainId);
             }
-            AppDomain.Unload(appDomain);
+            CrosswalkModule.Call.AppDomain_Unload(appDomain);
         }
     }
 }

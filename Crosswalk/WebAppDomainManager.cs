@@ -13,7 +13,7 @@ namespace Crosswalk
         public override void InitializeNewDomain(AppDomainSetup appDomainInfo)
         {
             _info.BindHandler = BindHandler;
-            CrosswalkModule.BindAppHandlerInfo(ref _info);
+            CrosswalkModule.Call.BindAppHandlerInfo(ref _info);
         }
 
         public void BindHandler(

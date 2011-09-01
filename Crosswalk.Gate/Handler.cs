@@ -73,14 +73,14 @@ namespace Crosswalk.Gate
                         headerValues[headerCount] = kv.Value;
                         ++headerCount;
                     }
-                    CrosswalkModule.ResponseStart(transaction, status, headerCount, headerNames, headerValues);
+                    CrosswalkModule.Call.ResponseStart(transaction, status, headerCount, headerNames, headerValues);
                     body(
                         (data, continuation) =>
                         {
                             if (continuation == null)
                             {
                                 bool ignored;
-                                CrosswalkModule.ResponseBody(transaction, data.Array, data.Offset, data.Count, null, out ignored);
+                                CrosswalkModule.Call.ResponseBody(transaction, data.Array, data.Offset, data.Count, null, out ignored);
                                 return false;
                             }
 
@@ -95,7 +95,7 @@ namespace Crosswalk.Gate
                             pins[1] = GCHandle.Alloc(callback, GCHandleType.Normal); // prevent delegate from being collected while native callback pending
 
                             bool async;
-                            CrosswalkModule.ResponseBody(transaction, data.Array, data.Offset, data.Count, callback, out async);
+                            CrosswalkModule.Call.ResponseBody(transaction, data.Array, data.Offset, data.Count, callback, out async);
                             if (async)
                             {
                                 return true;
@@ -105,10 +105,10 @@ namespace Crosswalk.Gate
                             pins[1].Free();
                             return false;
                         },
-                        ex2 => CrosswalkModule.ResponseComplete(transaction, Marshal.GetHRForException(ex2)),
-                        () => CrosswalkModule.ResponseComplete(transaction, 0));
+                        ex2 => CrosswalkModule.Call.ResponseComplete(transaction, Marshal.GetHRForException(ex2)),
+                        () => CrosswalkModule.Call.ResponseComplete(transaction, 0));
                 },
-                ex => CrosswalkModule.ResponseComplete(transaction, Marshal.GetHRForException(ex)));
+                ex => CrosswalkModule.Call.ResponseComplete(transaction, Marshal.GetHRForException(ex)));
         }
     }
 }
