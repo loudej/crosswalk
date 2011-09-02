@@ -10,3 +10,5 @@ bin
 *.opensdf
 ipch
 src/Sandbox/App_Data
+src/Sandbox/Host.config
+src/Sandbox/Pool.config
