@@ -12,7 +12,7 @@ rem mklink %windir%\system32\inetsrv\Crosswalk.dll %~dp0Debug\Crosswalk.dll
 
 echo ----------
 del    %windir%\system32\inetsrv\CrosswalkModule.dll
-mklink %windir%\system32\inetsrv\CrosswalkModule.dll %~dp0CrosswalkModule\bin\x64\Debug\CrosswalkModule.dll
+mklink %windir%\system32\inetsrv\CrosswalkModule.dll %~dp0src\CrosswalkModule\bin\x64\Debug\CrosswalkModule.dll
 
 
 echo ==========
@@ -24,7 +24,7 @@ rem mklink %windir%\syswow64\inetsrv\Crosswalk.dll %~dp0Debug\Crosswalk.dll
 
 echo ----------
 del    %windir%\syswow64\inetsrv\CrosswalkModule.dll
-mklink %windir%\syswow64\inetsrv\CrosswalkModule.dll %~dp0CrosswalkModule\bin\Debug\CrosswalkModule.dll
+mklink %windir%\syswow64\inetsrv\CrosswalkModule.dll %~dp0src\CrosswalkModule\bin\Debug\CrosswalkModule.dll
 
 
 echo ==========
@@ -36,4 +36,4 @@ rem mklink "%ProgramFiles(x86)%\iis express\Crosswalk.dll" %~dp0Debug\Crosswalk.
 
 echo ----------
 del    "%ProgramFiles(x86)%\iis express\CrosswalkModule.dll"
-mklink "%ProgramFiles(x86)%\iis express\CrosswalkModule.dll" %~dp0CrosswalkModule\bin\Debug\CrosswalkModule.dll
+mklink "%ProgramFiles(x86)%\iis express\CrosswalkModule.dll" %~dp0src\CrosswalkModule\bin\Debug\CrosswalkModule.dll

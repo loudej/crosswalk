@@ -26,7 +26,7 @@ namespace Sandbox
                             {
                                 if (sendCount == 0)
                                 {
-                                    var message = string.Format("AppDomain.CurrentDomain.Id {0}", AppDomain.CurrentDomain.Id);
+                                    var message = string.Format("AppDomain.CurrentDomain.Id {0}\r\n", AppDomain.CurrentDomain.Id);
                                     data(new ArraySegment<byte>(Encoding.UTF8.GetBytes(message)), null);
                                 }
 
