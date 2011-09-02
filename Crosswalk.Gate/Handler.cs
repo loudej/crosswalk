@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Gate;
 using Environment = Gate.Environment;
@@ -56,10 +57,34 @@ namespace Crosswalk.Gate
             String[] unknownRequestHeaderNames,
             String[] unknownRequestHeaderValues)
         {
+            var requestHeaders = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            for(var knownRequestHeader = 0; knownRequestHeader != CrosswalkModule.KnownRequestHeaderNames.Length; ++knownRequestHeader)
+            {
+                if (!string.IsNullOrEmpty(knownRequestHeaders[knownRequestHeader]))
+                    requestHeaders[CrosswalkModule.KnownRequestHeaderNames[knownRequestHeader]] = knownRequestHeaders[knownRequestHeader];
+            }
+            for(var unknownRequestHeader = 0; unknownRequestHeader != unknownRequestHeaderNames.Length; ++unknownRequestHeader)
+            {
+                if (!string.IsNullOrEmpty(unknownRequestHeaderValues[unknownRequestHeader]))
+                    requestHeaders[unknownRequestHeaderNames[unknownRequestHeader]] = unknownRequestHeaderValues[unknownRequestHeader];
+            }
+
             var env = new Environment
             {
-                Scheme = "http"
+                Version = "1.0",
+                Method = knownServerVariables[(int)CrosswalkModule.KnownServerVariables.RequestMethod],
+                Scheme = knownServerVariables[(int)CrosswalkModule.KnownServerVariables.ServerProtocol],
+                PathBase = "",
+                Path = knownServerVariables[(int)CrosswalkModule.KnownServerVariables.ScriptName],
+                QueryString = knownServerVariables[(int)CrosswalkModule.KnownServerVariables.QueryString],
+                Headers = requestHeaders,
+                Body = null,
             };
+            for(var knownServerVariable = 0; knownServerVariable != CrosswalkModule.KnownServerVariableNames.Length; ++knownServerVariable)
+            {
+                env["server."+CrosswalkModule.KnownServerVariableNames[knownServerVariable]] = knownServerVariables[knownServerVariable];
+            }
+
             _app(
                 env,
                 (status, headers, body) =>
@@ -74,6 +99,11 @@ namespace Crosswalk.Gate
                         ++headerCount;
                     }
                     CrosswalkModule.Call.ResponseStart(transaction, status, headerCount, headerNames, headerValues);
+                    
+                    // non-existant response body replaced with self-completing call
+                    if (body == null)
+                        body = (next, error, complete) => { complete(); return () => { }; };
+
                     body(
                         (data, continuation) =>
                         {

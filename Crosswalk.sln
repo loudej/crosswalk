@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Baseline", "Baseline\Baseli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crosswalk.Tests", "Crosswalk.Tests\Crosswalk.Tests.csproj", "{76013977-DE6A-4A67-86B8-62A5F6EFEE27}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{D6BF9B56-0889-407E-9A0E-04DA73EC912D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,5 +109,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{76013977-DE6A-4A67-86B8-62A5F6EFEE27} = {D6BF9B56-0889-407E-9A0E-04DA73EC912D}
 	EndGlobalSection
 EndGlobal

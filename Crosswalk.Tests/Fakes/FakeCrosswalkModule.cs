@@ -12,6 +12,18 @@ namespace Crosswalk.Tests.Fakes
         public CrosswalkModule.AppHandlerInfo AppHandlerInfo;
         public AppDomainSetup AppDomainSetup;
 
+        public int ResponseStartCalls { get; set; }
+        public string ResponseStartStatus { get; set; }
+        public int ResponseStartHeaderCount { get; set; }
+        public string[] ResponseStartHeaderNames { get; set; }
+        public string[] ResponseStartHeaderValues { get; set; }
+
+        public int ResponseBodyCalls { get; set; }
+
+        public int ResponseCompleteCalls { get; set; }
+        public int ResponseCompleteHresultForException { get; set; }
+
+
         void CrosswalkModule.ICrosswalkModule.BindAppPoolInfo(ref CrosswalkModule.AppPoolInfo info)
         {
             // save incoming values
@@ -31,18 +43,27 @@ namespace Crosswalk.Tests.Fakes
 
         void CrosswalkModule.ICrosswalkModule.ResponseStart(object transaction, string status, int headerCount, string[] headerNames, string[] headerValues)
         {
-            throw new NotImplementedException();
+            ResponseStartCalls++;
+            ResponseStartStatus = status;
+            ResponseStartHeaderCount = headerCount;
+            ResponseStartHeaderNames = headerNames;
+            ResponseStartHeaderValues = headerValues;
         }
 
-        bool CrosswalkModule.ICrosswalkModule.ResponseBody(object transaction, byte[] data, int offset, int count, CrosswalkModule.ContinuationDelegate continuation, out bool async)
+
+        void CrosswalkModule.ICrosswalkModule.ResponseBody(object transaction, byte[] data, int offset, int count, CrosswalkModule.ContinuationDelegate continuation, out bool async)
         {
-            throw new NotImplementedException();
+            ResponseBodyCalls++;
+            async = false;
         }
 
         void CrosswalkModule.ICrosswalkModule.ResponseComplete(object transaction, int hresultForException)
         {
-            throw new NotImplementedException();
+            ResponseCompleteCalls++;
+            ResponseCompleteHresultForException = hresultForException;
         }
+
+
 
         AppDomain CrosswalkModule.ICrosswalkModule.AppDomain_CreateDomain(string friendlyName, Evidence securityInfo, AppDomainSetup info)
         {

@@ -44,7 +44,7 @@ namespace Crosswalk
                 string[] headerNames,
                 string[] headerValues);
 
-            bool ResponseBody(
+            void ResponseBody(
                 object transaction,
                 byte[] data,
                 int offset,
@@ -62,10 +62,10 @@ namespace Crosswalk
             /// so tests may hook those calls
             /// </summary>
             AppDomain AppDomain_CreateDomain(
-                string friendlyName, 
-                Evidence securityInfo, 
+                string friendlyName,
+                Evidence securityInfo,
                 AppDomainSetup info);
-            
+
             /// <summary>
             /// This is a pass-through to AppDomain.Unload provided here
             /// so tests may hook those calls
@@ -91,9 +91,9 @@ namespace Crosswalk
                 _ResponseStart(transaction, status, headerCount, headerNames, headerValues);
             }
 
-            bool ICrosswalkModule.ResponseBody(object transaction, byte[] data, int offset, int count, ContinuationDelegate continuation, out bool async)
+            void ICrosswalkModule.ResponseBody(object transaction, byte[] data, int offset, int count, ContinuationDelegate continuation, out bool async)
             {
-                return _ResponseBody(transaction, data, offset, count, continuation, out async);
+                _ResponseBody(transaction, data, offset, count, continuation, out async);
             }
 
             void ICrosswalkModule.ResponseComplete(object transaction, int hresultForException)
@@ -126,7 +126,7 @@ namespace Crosswalk
                 [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPWStr, SizeParamIndex = 2)] string[] headerValues);
 
             [DllImport("CrosswalkModule.dll", EntryPoint = "ResponseBody", CallingConvention = CallingConvention.StdCall)]
-            static extern bool _ResponseBody(
+            static extern void _ResponseBody(
                 [MarshalAs(UnmanagedType.IUnknown)] object transaction,
                 [MarshalAs(UnmanagedType.LPArray)] byte[] data,
                 int offset,
@@ -211,6 +211,121 @@ namespace Crosswalk
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void ContinuationDelegate();
 
+        public enum KnownServerVariables
+        {
+            RequestMethod,
+            ScriptName,
+            PathInfo,
+            QueryString,
+            ContentType,
+            ContentLength,
+            ServerName,
+            ServerPort,
+            ServerProtocol,
+        };
+
+        public static string[] KnownServerVariableNames =
+        {
+            "REQUEST_METHOD",
+            "SCRIPT_NAME",
+            "PATH_INFO",
+            "QUERY_STRING",
+            "CONTENT_TYPE",
+            "CONTENT_LENGTH",
+            "SERVER_NAME",
+            "SERVER_PORT",
+            "SERVER_PROTOCOL",
+        };
+
+        public enum KnownRequestHeaders
+        {
+            HttpHeaderCacheControl = 0,    // general-header [section 4.5]
+            HttpHeaderConnection = 1,    // general-header [section 4.5]
+            HttpHeaderDate = 2,    // general-header [section 4.5]
+            HttpHeaderKeepAlive = 3,    // general-header [not in rfc]
+            HttpHeaderPragma = 4,    // general-header [section 4.5]
+            HttpHeaderTrailer = 5,    // general-header [section 4.5]
+            HttpHeaderTransferEncoding = 6,    // general-header [section 4.5]
+            HttpHeaderUpgrade = 7,    // general-header [section 4.5]
+            HttpHeaderVia = 8,    // general-header [section 4.5]
+            HttpHeaderWarning = 9,    // general-header [section 4.5]
+            HttpHeaderAllow = 10,   // entity-header  [section 7.1]
+            HttpHeaderContentLength = 11,   // entity-header  [section 7.1]
+            HttpHeaderContentType = 12,   // entity-header  [section 7.1]
+            HttpHeaderContentEncoding = 13,   // entity-header  [section 7.1]
+            HttpHeaderContentLanguage = 14,   // entity-header  [section 7.1]
+            HttpHeaderContentLocation = 15,   // entity-header  [section 7.1]
+            HttpHeaderContentMd5 = 16,   // entity-header  [section 7.1]
+            HttpHeaderContentRange = 17,   // entity-header  [section 7.1]
+            HttpHeaderExpires = 18,   // entity-header  [section 7.1]
+            HttpHeaderLastModified = 19,   // entity-header  [section 7.1]
+            HttpHeaderAccept = 20,   // request-header [section 5.3]
+            HttpHeaderAcceptCharset = 21,   // request-header [section 5.3]
+            HttpHeaderAcceptEncoding = 22,   // request-header [section 5.3]
+            HttpHeaderAcceptLanguage = 23,   // request-header [section 5.3]
+            HttpHeaderAuthorization = 24,   // request-header [section 5.3]
+            HttpHeaderCookie = 25,   // request-header [not in rfc]
+            HttpHeaderExpect = 26,   // request-header [section 5.3]
+            HttpHeaderFrom = 27,   // request-header [section 5.3]
+            HttpHeaderHost = 28,   // request-header [section 5.3]
+            HttpHeaderIfMatch = 29,   // request-header [section 5.3]
+            HttpHeaderIfModifiedSince = 30,   // request-header [section 5.3]
+            HttpHeaderIfNoneMatch = 31,   // request-header [section 5.3]
+            HttpHeaderIfRange = 32,   // request-header [section 5.3]
+            HttpHeaderIfUnmodifiedSince = 33,   // request-header [section 5.3]
+            HttpHeaderMaxForwards = 34,   // request-header [section 5.3]
+            HttpHeaderProxyAuthorization = 35,   // request-header [section 5.3]
+            HttpHeaderReferer = 36,   // request-header [section 5.3]
+            HttpHeaderRange = 37,   // request-header [section 5.3]
+            HttpHeaderTe = 38,   // request-header [section 5.3]
+            HttpHeaderTranslate = 39,   // request-header [webDAV, not in rfc 2518]
+            HttpHeaderUserAgent = 40,   // request-header [section 5.3]
+        }
+
+        public static string[] KnownRequestHeaderNames =
+        {
+            "Cache-Control",
+            "Connection",
+            "Date",
+            "Keep-Alive",
+            "Pragma",
+            "Trailer",
+            "Transfer-Encoding",
+            "Upgrade",
+            "Via",
+            "Warning",
+            "Allow",
+            "Content-Length",
+            "Content-Type",
+            "Content-Encoding",
+            "Content-Language",
+            "Content-Location",
+            "Content-MD5",
+            "Content-Range",
+            "Expires",
+            "Last-Modified",
+            "Accept",
+            "Accept-Charset",
+            "Accept-Encoding",
+            "Accept-Language",
+            "Authorization",
+            "Cookie",
+            "Expect",
+            "From",
+            "Host",
+            "If-Match",
+            "If-Modified-Since",
+            "If-None-Match",
+            "If-Range",
+            "If-Unmodified-Since",
+            "Max-Forwards",
+            "Proxy-Authorization",
+            "Referer",
+            "Range",
+            "TE",
+            "Translate",
+            "User-Agent",
+        };
     }
 }
 
