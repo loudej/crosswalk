@@ -3,14 +3,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LocalDebuggerCommand>C:\Windows\SysWOW64\inetsrv\w3wp.exe</LocalDebuggerCommand>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>-h $(SolutionDir)Sandbox\Host.config</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-h $(SolutionDir)src\Sandbox\Host.config</LocalDebuggerCommandArguments>
     <LocalDebuggerDebuggerType>Mixed</LocalDebuggerDebuggerType>
     <ShowAllFiles>false</ShowAllFiles>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LocalDebuggerCommand>C:\Windows\System32\inetsrv\w3wp.exe</LocalDebuggerCommand>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>-h $(SolutionDir)Sandbox\Host.config</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-h $(SolutionDir)src\Sandbox\Host.config</LocalDebuggerCommandArguments>
     <LocalDebuggerDebuggerType>Mixed</LocalDebuggerDebuggerType>
     <ShowAllFiles>false</ShowAllFiles>
   </PropertyGroup>

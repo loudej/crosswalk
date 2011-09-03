@@ -144,7 +144,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="CrosswalkModule.def" />
-    <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ComObject.h" />

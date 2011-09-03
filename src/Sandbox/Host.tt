@@ -1,5 +1,10 @@
-﻿<#@ output  extension="config" #>
+﻿<#@ output extension="config" #>
 <#@ template hostspecific="true" #>
+<#
+	var baseDirectory = System.IO.Path.GetDirectoryName(Host.ResolvePath(""));
+	var crosswalkDebug32 = System.IO.Path.Combine(baseDirectory, @"CrosswalkModule\bin\Debug\CrosswalkModule.dll");
+	var crosswalkDebug64 = System.IO.Path.Combine(baseDirectory, @"CrosswalkModule\bin\x64\Debug\CrosswalkModule.dll");
+#>
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
@@ -216,7 +221,9 @@
 
         -->
     <globalModules>
-      <add name="CrosswalkModule" image="%windir%\System32\inetsrv\CrosswalkModule.dll" />
+      <!-- <add name="CrosswalkModule" image="%windir%\System32\inetsrv\CrosswalkModule.dll" /> -->
+      <!-- <add name="CrosswalkModule" image="<#= crosswalkDebug32 #>" preCondition="bitness32" /> -->
+      <add name="CrosswalkModule" image="<#= crosswalkDebug64 #>" preCondition="bitness64" />
 
       <add name="UriCacheModule" image="%windir%\System32\inetsrv\cachuri.dll" />
       <add name="FileCacheModule" image="%windir%\System32\inetsrv\cachfile.dll" />

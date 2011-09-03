@@ -84,6 +84,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Pool.tt</DependentUpon>
     </Content>
+    <Content Include="Host.config">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Host.tt</DependentUpon>
+    </Content>
     <None Include="Pool.tt">
       <SubType>Designer</SubType>
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -102,11 +107,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Host.config">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Host.tt</DependentUpon>
-    </Content>
     <None Include="Host.tt">
       <SubType>Designer</SubType>
       <Generator>TextTemplatingFileGenerator</Generator>
