@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Gate">
-      <HintPath>..\packages\Gate.0.1.4\lib\Gate.dll</HintPath>
+      <HintPath>..\..\..\packages\Gate.0.1.4\lib\Gate.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

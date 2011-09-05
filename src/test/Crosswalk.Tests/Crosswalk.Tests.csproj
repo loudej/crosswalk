@@ -32,16 +32,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Gate">
-      <HintPath>..\packages\Gate.0.1.4\lib\Gate.dll</HintPath>
+      <HintPath>..\..\..\packages\Gate.0.1.4\lib\Gate.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
+      <HintPath>..\..\..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="nunit.mocks">
-      <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.mocks.dll</HintPath>
+      <HintPath>..\..\..\packages\NUnit.2.5.10.11092\lib\nunit.mocks.dll</HintPath>
     </Reference>
     <Reference Include="pnunit.framework">
-      <HintPath>..\packages\NUnit.2.5.10.11092\lib\pnunit.framework.dll</HintPath>
+      <HintPath>..\..\..\packages\NUnit.2.5.10.11092\lib\pnunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -60,11 +60,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Crosswalk.Gate\Crosswalk.Gate.csproj">
+    <ProjectReference Include="..\..\app\Crosswalk.Gate\Crosswalk.Gate.csproj">
       <Project>{06DF333E-7E1F-4BA5-A1CD-5B0F6DC31F52}</Project>
       <Name>Crosswalk.Gate</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Crosswalk\Crosswalk.csproj">
+    <ProjectReference Include="..\..\app\Crosswalk\Crosswalk.csproj">
       <Project>{C1BFC9AF-C7BB-44FC-A07E-BC4754C228B9}</Project>
       <Name>Crosswalk</Name>
     </ProjectReference>
